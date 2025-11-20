@@ -1,0 +1,16 @@
+namespace: nerdynik
+name: general
+version: 0.0.1
+readme: README.md
+authors:
+  - NerdyNik
+description: >
+  A collection of roles to help setup deploying various applications
+  into different homelab setup types, Docker/Kubernetes/VM
+license:
+  - BSD-3-Clause
+tags:
+  - homelab
+repository: https://github.com/nerdynick/ansible-galaxy.git
+homepage: https://github.com/nerdynick/ansible-galaxy
+issues: https://github.com/nerdynick/ansible-galaxy/issues

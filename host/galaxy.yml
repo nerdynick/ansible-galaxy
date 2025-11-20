@@ -1,0 +1,16 @@
+namespace: nerdynik
+name: host
+version: 0.0.1
+readme: README.md
+authors:
+  - NerdyNik
+description: >
+  A collection of roles to help deploying various applications into Baremetal/VM based homelab setups. 
+  These are also used in conjunction to setup the physical hosts in a K8s/K3s cluster.
+license:
+  - BSD-3-Clause
+tags:
+  - homelab
+repository: https://github.com/nerdynick/ansible-galaxy.git
+homepage: https://github.com/nerdynick/ansible-galaxy
+issues: https://github.com/nerdynick/ansible-galaxy/issues
