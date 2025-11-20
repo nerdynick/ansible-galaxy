@@ -3,9 +3,109 @@
 
 argument_specs:
   main:
-    short_description: Role description.
+    short_description:  A role to help install a given package/application across multiple different platforms.
+    version_added: 0.0.1
+    author: 
+      - NerdyNik
     options:
-      multiplatform_installer_my_variable:
+      multiplatform_installer_package:
         type: str
-        description: A simple string argument for demonstration.
-        default: "default_value"
+        description: Optional Default package name to use if all/most installation methods share the same name
+        default: None
+      multiplatform_installer_apt:
+        type: dict
+        description: ""
+        default:
+          package: "{{ multiplatform_installer_package }}"
+          key: None
+          repo: None
+        options:
+          package: 
+            type: str
+            description: The package name to install from yum
+          key:
+            type: dict
+            description: Attributes for the Repo Signing Key, typically a GPG key.
+            options:
+              name:
+                type: str
+                required: true
+                description: >
+                  The name to give the key. This is effectively the name of the key file store on the filesystem.
+                  Of note the extension `.asc` will automatically be added to the saved file into the apt keyring.
+              url:
+                type: str
+                required: true
+                description: URL to fetch the signing key from
+          repo:
+            type: dict
+            description: Attributes for assembling the Repo definition
+            options:
+              url:
+                type: str
+                required: true
+                description: URL of the Repo
+              dist:
+                type: str
+                description: Distribution name, or in some case the path from root on the repo, this can also sometimes be the codename for the release.
+              name:
+                type: str
+                required: true
+                description: The name to give when creating and local source/repo files to define out the repo
+            default:
+              dist: stable
+      multiplatform_installer_yum:
+        type: dict
+        description: ""
+        default:
+          package: "{{ multiplatform_installer_package }}"
+          key: None
+          repo: None
+        options:
+          package: 
+            type: str
+            description: The package name to install from yum
+          key:
+            type: dict
+            description: Attributes for the Repo Signing Key, typically a GPG key.
+            options:
+              name:
+                type: str
+                required: true
+                description: The name to give the key. This is effectively the name of the key file store on the filesystem.
+              url:
+                type: str
+                required: true
+                description: URL to fetch the signing key from
+          repo:
+            type: dict
+            description: Attributes for assembling the Repo definition
+            options:
+              url:
+                type: str
+                required: true
+                description: URL of the Repo
+              dist:
+                type: str
+                description: Distribution name, or in some case the path from root on the repo, this can also sometimes be the codename for the release.
+              name:
+                type: str
+                required: true
+                description: The name to give when creating and local source/repo files to define out the repo
+            default:
+              dist: stable
+      multiplatform_installer_brew:
+        type: dict
+        description: MacOS package installation settings. Used in conjunction with Homebrew (`brew`)
+        default:
+          package: "{{ multiplatform_installer_package }}"
+          is_cask: false
+        options:
+          package:
+            type: str
+            required: true
+            description: Package or Cask name to install
+          is_cask:
+            type: bool
+            required: true
+            description: Weather the package to install should be installed via a Cask or just from the tap.
