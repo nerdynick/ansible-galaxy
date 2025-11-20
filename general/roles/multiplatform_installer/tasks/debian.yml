@@ -1,5 +1,5 @@
 ---
-- name: Adding DEB Repo and Installing Package
+- name: Adding Apt Repo and Installing Package
   when: multiplatform_installer_apt['key'] is defined && multiplatform_installer_apt['repo'] is defined && multiplatform_installer_apt['package'] is defined
   block:
     - name: Installing Repo Signing Key
@@ -36,3 +36,11 @@
     - name: Installing Package from DEB
       ansible.builtin.apt:
         deb: "{{ multiplatform_installer_temp_deb.dest }}"
+- name: Installing Package from Apt
+  when: multiplatform_installer_apt['key'] is undefined && multiplatform_installer_apt['repo'] is undefined && multiplatform_installer_apt['package'] is defined
+  block:
+    - name: Installing Package from APT
+      ansible.builtin.apt:
+        name: "{{ multiplatform_installer_apt['package'] }}"
+        state: present
+        update_cache: true
