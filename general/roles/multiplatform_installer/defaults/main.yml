@@ -8,14 +8,24 @@
 # Key Structure:
 #   url - Url to fetch the GPG Key from
 #   name - Name to give to the GPG key. `.asc` will auto be appended for DEB/Apt based installs
+
+# Global Settings
 multiplatform_installer_package: None
-multiplatform_installer_package_macos: "{{ multiplatform_installer_package }}"
+
+# Redhat like Linux Settings
 multiplatform_installer_yum:
   package: "{{ multiplatform_installer_package }}"
   key: None
   repo: None
+
+# Debian like Linux Settings
 multiplatform_installer_apt:
   package: "{{ multiplatform_installer_package }}"
   key: None
   repo: None
 multiplatform_installer_deb_url: None
+
+# MacOS Settings
+multiplatform_installer_brew:
+  package: "{{ multiplatform_installer_package }}"
+  is_cask: false

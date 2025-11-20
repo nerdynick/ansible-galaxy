@@ -1,0 +1,9 @@
+---
+- name: Installing Package via Brew Cask
+  when: multiplatform_installer_brew['is_cask']
+  community.general.homebrew_cask:
+    name: "{{ multiplatform_installer_brew['package'] }}"
+- name: Installing Package via Brew
+  when: not multiplatform_installer_brew['is_cask']
+  community.general.homebrew:
+    name: "{{ multiplatform_installer_brew['package'] }}"

@@ -8,6 +8,5 @@
   ansible.builtin.include_tasks: redhat.yml
   when: ansible_os_family == 'RedHat'
 - name: "Installing for MacOS - {{ ansible_role_name }}"
-  community.general.homebrew_cask:
-    name: sublime-text
+  ansible.builtin.include_tasks: macos.yml
   when: ansible_distribution == 'MacOSX'
