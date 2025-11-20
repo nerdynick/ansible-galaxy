@@ -1,0 +1,38 @@
+---
+- name: Adding DEB Repo and Installing Package
+  when: multiplatform_installer_apt['key'] is defined && multiplatform_installer_apt['repo'] is defined && multiplatform_installer_apt['package'] is defined
+  block:
+    - name: Installing Repo Signing Key
+      ansible.builtin.get_url:
+        url: "{{ multiplatform_installer_apt['key']['url'] }}"
+        dest: "/etc/apt/keyrings/{{ multiplatform_installer_apt['key']['name'] }}.asc"
+        mode: '0644'
+    - name: Adding APT Repo
+      ansible.builtin.apt_repository:
+        repo: >
+          deb
+          [signed-by=/etc/apt/keyrings/{{ multiplatform_installer_apt['key']['name'] }}.asc]
+          {{ multiplatform_installer_apt['repo']['url'] }}
+          {{ multiplatform_installer_apt['repo']['dist'] | default('stable') }}
+        filename: "{{ multiplatform_installer_apt['repo']['name'] }}"
+    - name: Installing Package from APT
+      ansible.builtin.apt:
+        name: "{{ multiplatform_installer_apt['package'] }}"
+        state: present
+        update_cache: true
+- name: Installing via `.deb` file
+  when: multiplatform_installer_deb_url is defined
+  block:
+    - name: Creating TempDir for download space
+      ansible.builtin.tempfile:
+        state: directory
+      register: multiplatform_installer_temp_dir
+    - name: "Fetching `.deb` from {{ multiplatform_installer_deb_url }}"
+      ansible.builtin.get_url:
+        url: "{{ multiplatform_installer_deb_url }}"
+        dest: "{{ multiplatform_installer_temp_dir.path }}"
+        mode: '0644'
+      register: multiplatform_installer_temp_deb
+    - name: Installing Package from DEB
+      ansible.builtin.apt:
+        deb: "{{ multiplatform_installer_temp_deb.dest }}"

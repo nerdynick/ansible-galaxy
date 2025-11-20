@@ -1,0 +1,21 @@
+---
+# defaults file for nerdynik.workstation.multiplatform_installer
+
+# Repo Structure:
+#   url - Url to the repo
+#   name - Name to give to the sources file
+#   dist - Distribution or path from repo root. Will assume `stable` if undefined.
+# Key Structure:
+#   url - Url to fetch the GPG Key from
+#   name - Name to give to the GPG key. `.asc` will auto be appended for DEB/Apt based installs
+multiplatform_installer_package: None
+multiplatform_installer_package_macos: "{{ multiplatform_installer_package }}"
+multiplatform_installer_yum:
+  package: "{{ multiplatform_installer_package }}"
+  key: None
+  repo: None
+multiplatform_installer_apt:
+  package: "{{ multiplatform_installer_package }}"
+  key: None
+  repo: None
+multiplatform_installer_deb_url: None

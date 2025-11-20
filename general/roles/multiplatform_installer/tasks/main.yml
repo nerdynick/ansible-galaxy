@@ -1,0 +1,13 @@
+---
+- name: Gathering Facts
+  ansible.builtin.gather_facts: {}
+- name: "Installing for Debian Like - {{ ansible_role_name }}"
+  ansible.builtin.include_tasks: debian.yml
+  when: ansible_os_family == 'Debian'
+- name: "Installing for Redhat Like - {{ ansible_role_name }}"
+  ansible.builtin.include_tasks: redhat.yml
+  when: ansible_os_family == 'RedHat'
+- name: "Installing for MacOS - {{ ansible_role_name }}"
+  community.general.homebrew_cask:
+    name: sublime-text
+  when: ansible_distribution == 'MacOSX'
