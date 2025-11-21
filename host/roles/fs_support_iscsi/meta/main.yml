@@ -1,0 +1,7 @@
+---
+galaxy_info:
+  author: NerdyNik
+  description: Role to ensure all dependencies for mounting iSCSI shares are installed
+  company: NerdyNik
+  license: BSD-3-Clause
+  min_ansible_version: "2.14"

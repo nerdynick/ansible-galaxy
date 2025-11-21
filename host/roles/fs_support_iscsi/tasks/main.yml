@@ -1,0 +1,22 @@
+---
+- name: Installing NFS Drivers
+  ansible.builtin.include_role:
+    name: nerdynik.general.multiplatform_installer
+  vars:
+    multiplatform_installer_apt_package: open-iscsi
+    # TDB - multiplatform_installer_yum_package:
+- name: Ensure ISCSI Process is started
+  ansible.builtin.systemd:
+    name: iscsid
+    daemon_reload: true
+    state: started
+    enabled: true
+# May require restart to succeed
+- name: Enable ISCSI TCP now
+  community.general.modprobe:
+    name: iscsi_tcp
+- name: Enable ISCSI TCP on Restart
+  ansible.builtin.lineinfile:
+    dest: /etc/modules-load.d/iscsi-tcp.conf
+    line: iscsi_tcp
+    create: true

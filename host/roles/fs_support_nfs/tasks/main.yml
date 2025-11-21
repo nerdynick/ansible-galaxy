@@ -1,0 +1,7 @@
+---
+- name: Installing NFS Drivers
+  ansible.builtin.include_role:
+    name: nerdynik.general.multiplatform_installer
+  vars:
+    multiplatform_installer_apt_package: nfs-common
+    # TDB - multiplatform_installer_yum_package:
