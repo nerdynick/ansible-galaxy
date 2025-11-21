@@ -1,27 +1,53 @@
 ---
+- name: Debug
+  ansible.builtin.debug:
+    msg: |
+      PKG:     {{ multiplatform_installer_package }}
+      Apt PKG: {{ multiplatform_installer_apt_package }}
+      Apt:     {{ multiplatform_installer_apt_repo }}
+      Yum PKG: {{ multiplatform_installer_yum_package }}
+      Yum:     {{ multiplatform_installer_yum_repo }}
+      Check PKG:  {{ multiplatform_installer_apt_package is defined and multiplatform_installer_apt_package | length > 0 }}
+      Check Repo: {{ multiplatform_installer_apt_repo is undefined or multiplatform_installer_apt_repo | length == 0 }}
+- name: Installing Package from Apt
+  when: >
+    (multiplatform_installer_apt_repo is undefined or multiplatform_installer_apt_repo | length == 0) and
+    multiplatform_installer_apt_package is defined and multiplatform_installer_apt_package | length > 0
+  block:
+    - name: Installing Package from APT
+      ansible.builtin.apt:
+        name: "{{ multiplatform_installer_apt_package }}"
+        state: present
+        update_cache: true
+      become: true
 - name: Adding Apt Repo and Installing Package
-  when: multiplatform_installer_apt['key'] is defined && multiplatform_installer_apt['repo'] is defined && multiplatform_installer_apt['package'] is defined
+  when: >
+    (multiplatform_installer_apt_repo is defined and multiplatform_installer_apt_repo | length > 0) and
+    multiplatform_installer_apt_package is defined and multiplatform_installer_apt_package | length > 0
   block:
     - name: Installing Repo Signing Key
       ansible.builtin.get_url:
-        url: "{{ multiplatform_installer_apt['key']['url'] }}"
-        dest: "/etc/apt/keyrings/{{ multiplatform_installer_apt['key']['name'] }}.asc"
+        url: "{{ multiplatform_installer_apt_repo['key_url'] }}"
+        dest: "/etc/apt/keyrings/{{ multiplatform_installer_apt_repo['key_name'] }}.asc"
         mode: '0644'
+      become: true
     - name: Adding APT Repo
       ansible.builtin.apt_repository:
         repo: >
           deb
-          [signed-by=/etc/apt/keyrings/{{ multiplatform_installer_apt['key']['name'] }}.asc]
-          {{ multiplatform_installer_apt['repo']['url'] }}
-          {{ multiplatform_installer_apt['repo']['dist'] | default('stable') }}
-        filename: "{{ multiplatform_installer_apt['repo']['name'] }}"
+          [signed-by=/etc/apt/keyrings/{{ multiplatform_installer_apt_repo['key_name'] }}.asc]
+          {{ multiplatform_installer_apt_repo['url'] }}
+          {{ multiplatform_installer_apt_repo['dist'] | default('stable') }}
+        filename: "{{ multiplatform_installer_apt_repo['name'] }}"
+      become: true
     - name: Installing Package from APT
       ansible.builtin.apt:
-        name: "{{ multiplatform_installer_apt['package'] }}"
+        name: "{{ multiplatform_installer_apt_package }}"
         state: present
         update_cache: true
+      become: true
 - name: Installing via `.deb` file
-  when: multiplatform_installer_deb_url is defined
+  when: multiplatform_installer_deb_url is defined and multiplatform_installer_deb_url | length > 0
   block:
     - name: Creating TempDir for download space
       ansible.builtin.tempfile:
@@ -36,11 +62,4 @@
     - name: Installing Package from DEB
       ansible.builtin.apt:
         deb: "{{ multiplatform_installer_temp_deb.dest }}"
-- name: Installing Package from Apt
-  when: multiplatform_installer_apt['key'] is undefined && multiplatform_installer_apt['repo'] is undefined && multiplatform_installer_apt['package'] is defined
-  block:
-    - name: Installing Package from APT
-      ansible.builtin.apt:
-        name: "{{ multiplatform_installer_apt['package'] }}"
-        state: present
-        update_cache: true
+      become: true

@@ -10,22 +10,28 @@
 #   name - Name to give to the GPG key. `.asc` will auto be appended for DEB/Apt based installs
 
 # Global Settings
-multiplatform_installer_package: None
+multiplatform_installer_package: ""
 
 # Redhat like Linux Settings
-multiplatform_installer_yum:
-  package: "{{ multiplatform_installer_package }}"
-  key: None
-  repo: None
+multiplatform_installer_rpm_url: ""
+multiplatform_installer_yum_package: "{{ multiplatform_installer_package }}"
+multiplatform_installer_yum_repo: {}
+#   url:
+#   name:
+#   dist:
+#   key_url:
+#   key_name:
 
 # Debian like Linux Settings
-multiplatform_installer_apt:
-  package: "{{ multiplatform_installer_package }}"
-  key: None
-  repo: None
-multiplatform_installer_deb_url: None
+multiplatform_installer_deb_url: ""
+multiplatform_installer_apt_package: "{{ multiplatform_installer_package }}"
+multiplatform_installer_apt_repo: {}
+#   url:
+#   name:
+#   dist:
+#   key_url:
+#   key_name:
 
 # MacOS Settings
-multiplatform_installer_brew:
-  package: "{{ multiplatform_installer_package }}"
-  is_cask: false
+multiplatform_installer_brew_package: "{{ multiplatform_installer_package }}"
+multiplatform_installer_brew_is_cask: false
