@@ -1,0 +1,44 @@
+---
+- name: Debug
+  ansible.builtin.debug:
+    msg: |
+      PKG:     {{ multiplatform_installer_package }}
+      Yum PKG: {{ multiplatform_installer_yum_package }}
+      Yum:     {{ multiplatform_installer_yum_repo }}
+      Check PKG:  {{ multiplatform_installer_yum_package is defined and multiplatform_installer_yum_package | length > 0 }}
+      Check Repo: {{ multiplatform_installer_yum_repo is undefined or multiplatform_installer_yum_repo | length == 0 }}
+- name: Installing Package from Yum
+  when: >
+    (multiplatform_installer_apt_repo is undefined or multiplatform_installer_apt_repo | length == 0) and
+    multiplatform_installer_apt_package is defined and multiplatform_installer_apt_package | length > 0
+  block:
+    - name: Installing Package from Yum
+      ansible.builtin.yum:
+        name: "{{ multiplatform_installer_apt_package }}"
+        state: present
+        update_cache: true
+      become: true
+- name: Adding Apt Repo and Installing Package
+  when: >
+    (multiplatform_installer_yum_repo is defined and multiplatform_installer_yum_repo | length > 0) and
+    multiplatform_installer_yum_package is defined and multiplatform_installer_yum_package | length > 0
+  block:
+    - name: Adding APT Repo
+      ansible.builtin.yum_repository:
+        name: "{{ multiplatform_installer_yum_repo['name'] }}"
+        baseurl: "{{ multiplatform_installer_yum_repo['url'] }}"
+        gpgkey: "{{ multiplatform_installer_yum_repo['key_url'] }}"
+      become: true
+    - name: Installing Package from Yum
+      ansible.builtin.yum:
+        name: "{{ multiplatform_installer_apt_package }}"
+        state: present
+        update_cache: true
+      become: true
+- name: Installing via `.rpm` file
+  when: multiplatform_installer_rpm_url is defined and multiplatform_installer_rpm_url | length > 0
+  block:
+    - name: Installing Package from RPM
+      ansible.builtin.yum:
+        name: "{{ multiplatform_installer_rpm_url }}"
+      become: true

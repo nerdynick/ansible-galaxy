@@ -49,17 +49,7 @@
 - name: Installing via `.deb` file
   when: multiplatform_installer_deb_url is defined and multiplatform_installer_deb_url | length > 0
   block:
-    - name: Creating TempDir for download space
-      ansible.builtin.tempfile:
-        state: directory
-      register: multiplatform_installer_temp_dir
-    - name: "Fetching `.deb` from {{ multiplatform_installer_deb_url }}"
-      ansible.builtin.get_url:
-        url: "{{ multiplatform_installer_deb_url }}"
-        dest: "{{ multiplatform_installer_temp_dir.path }}"
-        mode: '0644'
-      register: multiplatform_installer_temp_deb
     - name: Installing Package from DEB
       ansible.builtin.apt:
-        deb: "{{ multiplatform_installer_temp_deb.dest }}"
+        deb: "{{ multiplatform_installer_deb_url }}"
       become: true
