@@ -1,11 +1,7 @@
 ---
-# argument spec file for nerdynik.workstation.sublime-text
-
 argument_specs:
   main:
-    short_description: Role description.
-    options:
-      sublime-text_my_variable:
-        type: str
-        description: A simple string argument for demonstration.
-        default: "default_value"
+    short_description: Role to install Sublime Text
+    description: >
+      Role to install Sublime Text. 
+      Taking into account OS weather to install Cask (MacOS) or Key, Repo, & Package (Linux - Debian/Redhat)

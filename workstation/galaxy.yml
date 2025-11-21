@@ -4,10 +4,7 @@ version: 0.0.1
 readme: README.md
 authors:
 - NerdyNik
-description: 'A collection of roles to help setup all the common applications that
-  are used on workstations.
-
-  '
+description: A collection of roles to help setup all the common applications that are used on workstations.
 license:
 - BSD-3-Clause
 tags:
@@ -16,4 +13,4 @@ repository: https://github.com/nerdynick/ansible-galaxy.git
 homepage: https://github.com/nerdynick/ansible-galaxy
 issues: https://github.com/nerdynick/ansible-galaxy/issues
 dependencies:
-  ansible.utils: '*'
+  "https://github.com/nerdynick/ansible-galaxy.git#/general/": 'main'
