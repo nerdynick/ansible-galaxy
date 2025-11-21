@@ -1,0 +1,18 @@
+---
+argument_specs:
+  main:
+    short_description: Role description.
+    options:
+      plex_server_metadir:
+        type: str
+        description: >
+          Absolute path to where the Plex Metadata Dir is located.
+          This is often called the `Library/Application Support` Directory.
+          It's also effectively the config Directory.
+        default: "/home/plexdata/Library/Application Support"
+      plex_server_config_allowed_networks:
+        type: str
+        description: >
+          A comma separated list of IPs or CIDRs of networks allowed to access Plex Server without authentication.
+          This can be useful if you are having issues claiming a newly installed Plex Server
+          that exists on a separate network then you are attempting to access it from.

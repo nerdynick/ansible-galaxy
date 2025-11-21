@@ -1,0 +1,60 @@
+---
+# tasks file for nerdynik.host.plex_server
+- name: Installing Plex Server
+  ansible.builtin.include_role:
+    name: nerdynik.general.multiplatform_installer
+  vars:
+    multiplatform_installer_package: plexmediaserver
+    multiplatform_installer_apt_repo:
+      name: plex
+      url: https://downloads.plex.tv/repo/deb/
+      dist: public main
+      key_name: plex
+      key_url: https://downloads.plex.tv/plex-keys/PlexSign.key
+    multiplatform_installer_yum_repo:
+      name: plex
+      url: https://downloads.plex.tv/repo/rpm/$basearch/
+      key_url: https://downloads.plex.tv/plex-keys/PlexSign.key
+    multiplatform_installer_brew_package: plex
+    multiplatform_installer_brew_is_cask: true
+- name: Installing Python LXML - Used by Ansible to edit XML based configs
+  ansible.builtin.include_role:
+    name: nerdynik.general.multiplatform_installer
+  vars:
+    multiplatform_installer_package: python3-lxml
+- name: Creating Plex Home DIR
+  ansible.builtin.file:
+    path: "{{ plex_server_metadir }}"
+    state: directory
+    mode: '0755'
+    owner: plex
+    group: plex
+- name: Creating Plex Override DIR
+  ansible.builtin.file:
+    path: /etc/systemd/system/plexmediaserver.service.d
+    state: directory
+    mode: '0755'
+    owner: plex
+    group: plex
+- name: Creating Plex System.d Override
+  ansible.builtin.template:
+    src: override.conf.j2
+    dest: /etc/systemd/system/plexmediaserver.service.d/override.conf
+    owner: root
+    group: root
+    mode: '0644'
+  notify:
+    - Reload Plex
+# By Default, when Plex Server 1st starts up,
+# it has been configured to only accept being claimed by requests coming from the same network that it is listening on.
+# By adding all networks (CIDRs) that the Plex Server can be accessed from here.
+# We can enable the host to be claimed by requests from a different network.
+- name: Add Local Networks to Plex Config
+  when: plex_server_config_allowed_networks is defined and plex_server_config_allowed_networks | length > 0
+  community.general.xml:
+    path: "{{ plex_server_metadir }}/Plex Media Server/Preferences.xml"
+    xpath: /Preferences
+    attribute: allowedNetworks
+    value: "{{ plex_server_config_allowed_networks }}"
+  notify:
+    - Restart Plex

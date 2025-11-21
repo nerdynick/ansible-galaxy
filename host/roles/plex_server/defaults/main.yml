@@ -1,0 +1,5 @@
+---
+plex_server_metadir: /home/plexdata/Library/Application Support
+
+# ReadMe about advanced configs here: https://support.plex.tv/articles/201105343-advanced-hidden-server-settings/
+plex_server_config_allowed_networks: ""
