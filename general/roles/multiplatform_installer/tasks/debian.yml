@@ -5,8 +5,6 @@
       PKG:     {{ multiplatform_installer_package }}
       Apt PKG: {{ multiplatform_installer_apt_package }}
       Apt:     {{ multiplatform_installer_apt_repo }}
-      Yum PKG: {{ multiplatform_installer_yum_package }}
-      Yum:     {{ multiplatform_installer_yum_repo }}
       Check PKG:  {{ multiplatform_installer_apt_package is defined and multiplatform_installer_apt_package | length > 0 }}
       Check Repo: {{ multiplatform_installer_apt_repo is undefined or multiplatform_installer_apt_repo | length == 0 }}
 - name: Installing Package from Apt
