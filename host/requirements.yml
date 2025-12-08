@@ -1,4 +1,6 @@
 collections:
-    - name: https://github.com/nerdynick/ansible-galaxy.git#/general/
-      version: main # Can be a branch or specific commit
-      type: git
+  - name: https://github.com/nerdynick/ansible-galaxy.git#/general/
+    version: main # Can be a branch or specific commit
+    type: git
+roles:
+  - name: kwoodson.yedit
