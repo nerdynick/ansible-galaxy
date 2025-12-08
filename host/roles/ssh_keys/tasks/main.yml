@@ -1,0 +1,22 @@
+---
+- name: Adding Public SSH Keys from List
+  when: ssh_keys_public_keys | length > 0
+  loop: "{{ ssh_keys_public_keys }}"
+  ansible.posix.authorized_key:
+    user: "{{ ssh_keys_user }}"
+    state: present
+    key: "{{ item }}"
+- name: Adding Public SSH Keys from Path List
+  when: ssh_keys_public_keys_paths | length > 0
+  loop: "{{ ssh_keys_public_keys_paths }}"
+  ansible.posix.authorized_key:
+    user: "{{ ssh_keys_user }}"
+    state: present
+    key: "{{ lookup('ansible.builtin.file', item) }}"
+- name: Adding Public SSH Keys from 1Password Lookups
+  when: ssh_keys_one_password | length > 0
+  loop: "{{ ssh_keys_one_password }}"
+  ansible.posix.authorized_key:
+    user: "{{ ssh_keys_user }}"
+    state: present
+    key: "{{ lookup('community.general.onepassword', item['uuid'], vault=item['vault'] | default(''), field=item['field'] | default('public key')) }}"

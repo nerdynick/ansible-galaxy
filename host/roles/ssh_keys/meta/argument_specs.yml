@@ -1,0 +1,37 @@
+---
+argument_specs:
+  main:
+    short_description: A simple role to add Authorized SSH Keys to a single user on a host
+    options:
+      ssh_keys_my_variable:
+        type: str
+        description: A simple string argument for demonstration.
+      ssh_keys_user:
+        type: str
+        required: true
+        description: The user to add the authorized SSH keys to
+      ssh_keys_public_keys:
+        type: list
+        description: A collection of strings representing a public ssh key to be added to the authorized keys for a user
+      ssh_keys_public_keys_paths:
+        type: list
+        description: A collection of file paths, local to the ansible runner, to read public SSH keys from to add to the authorized keys for a user
+      ssh_keys_one_password:
+        type: list
+        description: A collection of dicts that represent 1Password items containing SSH Public Keys
+        elements: dict
+        options:
+          uuid:
+            type: str
+            description: >
+              The UUID (Preferred Usage) or Name of the item in 1Password.
+              Using a UUID is the preferred method to provide the item as this ensure the lookup will continue to work even if you rename it.
+              However, if you move an item between vaults, the UUID is changed. So you will need to update it for those cases.
+          vault:
+            type: str
+            default: ''
+            description: The Vault to specifically search for the UUID. Defaults to searching all vaults
+          field:
+            type: str
+            default: public key
+            description: The field containing the public key. By default it will pull from 1Passwords default field when vault item is of an SSH Key Type.

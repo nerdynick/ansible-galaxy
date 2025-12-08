@@ -1,0 +1,9 @@
+---
+galaxy_info:
+  author: NerdyNik
+  description: >
+    A role to help install Authorized SSH Keys for a single user on a host.
+    It can load public keys from a local file path, raw strings, and 1Password.
+  company: NerdyNik
+  license: BSD-3-Clause
+  min_ansible_version: "2.14"
