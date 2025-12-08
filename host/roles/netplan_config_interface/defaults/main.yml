@@ -1,0 +1,18 @@
+---
+netplan_config_interface_interface: ""
+netplan_config_interface_netplanfile: "/etc/netplan/50-cloud-init.yaml"
+
+netplan_config_interface_dns4_addresses:
+  - 1.1.1.1
+  - 1.0.0.1
+# netplan_config_interface_dns6_addresses:
+#   - 2606:4700:4700::1111
+#   - 2606:4700:4700::1001
+
+netplan_config_interface_dhcp4: false
+netplan_config_interface_ip4_addresses: []
+netplan_config_interface_ip4_routes: []
+
+# netplan_config_interface_dhcp6: false
+# netplan_config_interface_ip6_addresses: []
+# netplan_config_interface_ip6_routes: []

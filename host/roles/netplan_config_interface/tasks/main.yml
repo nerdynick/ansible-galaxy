@@ -1,0 +1,24 @@
+---
+- name: Setting DHCP4
+  kwoodson.yedit:
+    src: "{{ netplan_config_interface_netplanfile }}"
+    key: "network.ethernets.{{ netplan_config_interface_interface }}.dhcp4"
+    value: "{{ netplan_config_interface_dhcp4 }}"
+- name: Setting Static IPv4 - Addresses
+  when: not netplan_config_interface_dhcp4
+  kwoodson.yedit:
+    src: "{{ netplan_config_interface_netplanfile }}"
+    key: "network.ethernets.{{ netplan_config_interface_interface }}.addresses"
+    value: "{{ netplan_config_interface_ip4_addresses }}"
+- name: Setting Static IPv4 - Routes
+  when: not netplan_config_interface_dhcp4
+  kwoodson.yedit:
+    src: "{{ netplan_config_interface_netplanfile }}"
+    key: "network.ethernets.{{ netplan_config_interface_interface }}.routes"
+    value: "{{ netplan_config_interface_ip4_routes }}"
+- name: Setting Static IPv4 - Routes
+  when: netplan_config_interface_dns4_addresses | length > 0
+  kwoodson.yedit:
+    src: "{{ netplan_config_interface_netplanfile }}"
+    key: "network.ethernets.{{ netplan_config_interface_interface }}.nameservers.addresses"
+    value: "{{ netplan_config_interface_dns4_addresses }}"

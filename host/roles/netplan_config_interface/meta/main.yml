@@ -1,0 +1,9 @@
+---
+galaxy_info:
+  author: NerdyNik
+  description: A role to adjust netplan configs to configure DHCP & Static IP information. As well as DNS settings.
+  company: NerdyNik
+  license: BSD-3-Clause
+  min_ansible_version: "2.14"
+dependencies:
+  - kwoodson.yedit

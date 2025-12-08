@@ -1,0 +1,50 @@
+---
+# argument spec file for nerdynik.host.netplan_config_interface
+
+argument_specs:
+  main:
+    short_description: Role description.
+    options:
+      netplan_config_interface_my_variable:
+        type: str
+        description: A simple string argument for demonstration.
+        default: "default_value"
+      netplan_config_interface_interface:
+        type: str
+        description: Name of the interface that is being configured. User `ip a` to list all interfaces and their names.
+        default: ""
+      netplan_config_interface_netplanfile: 
+        type: str
+        description: >
+          Full path to the Netplan file to configure interface in. 
+
+          Default value is typical of a Ubuntu Server install. 
+          Desktop editions may require an adjustment.
+          `ls -la /etc/netplan` can list other netplan files that might impact adoption.
+        default: "/etc/netplan/50-cloud-init.yaml"
+      netplan_config_interface_dns4_addresses:
+        type: list
+        description: >
+          Collect of DNS servers to use, regadless of if DHCP is enabled.
+          If you'd like to to just enable DHCP and not override DNS, set value to an empty list.
+        elements: str
+        default:
+          - 1.1.1.1
+          - 1.0.0.1
+      netplan_config_interface_dhcp4:
+        type: bool
+        description: Weather or not to enable DHCP or user the defined static addresses & routes
+        default: false
+      netplan_config_interface_ip4_addresses:
+        type: list
+        description: A collection of CIDR representations of the IP addresses of the interface. Example IP 172.16.1.240/24
+        elements: str
+      netplan_config_interface_ip4_routes:
+        type: list
+        description: A collection of routes to access via this interface
+        elements: dict
+        options:
+          to:
+            type: str
+          via:
+            type: str
