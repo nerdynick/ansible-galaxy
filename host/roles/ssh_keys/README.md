@@ -18,7 +18,7 @@ ssh_keys_one_password:
 ## Example Playbook
 
 ```yml
-- name: Installing Sublime Text
+- name: Installing SSH Keys
   ansible.builtin.include_role:
     name: nerdynik.host.ssh_keys
   vars:
