@@ -1,0 +1,5 @@
+---
+- name: Installing Linux Packages
+  ansible.builtin.package:
+    name: "{{ multiplatform_installer_bulk_packages_linux }}"
+    state: present

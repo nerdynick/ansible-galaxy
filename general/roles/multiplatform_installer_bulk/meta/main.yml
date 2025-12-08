@@ -1,0 +1,11 @@
+---
+galaxy_info:
+  author: NerdyNik
+  description: >
+    A simple role to install a collection of packages via native package managers; Brew, Apt, Yum, Dnf, etc.
+    Allows for a multi-platform installation of collections. To ensure different platforms have similar installations.
+  company: NerdyNik
+  license: BSD-3-Clause
+  min_ansible_version: "2.14"
+  galaxy_tags: []
+dependencies: []

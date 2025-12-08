@@ -1,0 +1,5 @@
+---
+- name: Installing APT Packages
+  ansible.builtin.apt:
+    name: "{{ multiplatform_installer_bulk_packages_linux_apt }}"
+    state: present

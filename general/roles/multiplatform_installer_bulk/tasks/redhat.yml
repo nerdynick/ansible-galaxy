@@ -1,0 +1,5 @@
+---
+- name: Installing YUM/DNF Packages
+  ansible.builtin.dnf:
+    name: "{{ multiplatform_installer_bulk_packages_linux_yum }}"
+    state: present

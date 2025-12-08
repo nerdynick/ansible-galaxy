@@ -1,0 +1,6 @@
+---
+multiplatform_installer_bulk_packages_mac: []
+multiplatform_installer_bulk_packages_mac_casks: []
+multiplatform_installer_bulk_packages_linux: []
+multiplatform_installer_bulk_packages_linux_apt: []
+multiplatform_installer_bulk_packages_linux_yum: []

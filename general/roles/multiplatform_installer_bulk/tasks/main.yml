@@ -1,0 +1,18 @@
+---
+- name: "Installing for Debian Like - {{ ansible_role_name }}"
+  when: ansible_os_family == 'Debian'
+  block:
+    - name: "Installing General Linux Packages"
+      ansible.builtin.include_tasks: linux.yml
+    - name: "Installing Debian only Packages"
+      ansible.builtin.include_tasks: debian.yml
+- name: "Installing for Redhat Like - {{ ansible_role_name }}"
+  when: ansible_os_family == 'RedHat'
+  block:
+    - name: "Installing General Linux Packages"
+      ansible.builtin.include_tasks: linux.yml
+    - name: "Installing Redhat only Packages"
+      ansible.builtin.include_tasks: redhat.yml
+- name: "Installing for MacOS - {{ ansible_role_name }}"
+  ansible.builtin.include_tasks: macos.yml
+  when: ansible_distribution == 'MacOSX'

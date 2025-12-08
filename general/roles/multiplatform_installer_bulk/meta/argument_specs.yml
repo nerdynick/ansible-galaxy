@@ -1,0 +1,23 @@
+---
+argument_specs:
+  main:
+    short_description: A simple role for installing a collection of packages via native package managers
+    description: >
+      A simple role to install a collection of packages via native package managers; Brew, Apt, Yum, Dnf, etc.
+      Allows for a multi-platform installation of collections. To ensure different platforms have similar installations.
+    options:
+      multiplatform_installer_bulk_packages_mac:
+        type: list
+        description: A collections of packages to install via Brew on MacOS
+      multiplatform_installer_bulk_packages_mac_casks:
+        type: list
+        description: A collections of packages to install via Brew Casks on MacOS
+      multiplatform_installer_bulk_packages_linux:
+        type: list
+        description: A collections of packages to install via Native Linux package manager; Apt, Yum, Dnf
+      multiplatform_installer_bulk_packages_linux_apt:
+        type: list
+        description: A collections of packages to install via Apt on Debian like systems
+      multiplatform_installer_bulk_packages_linux_yum:
+        type: list
+        description: A collections of packages to install via Yum/Dnf on Redhat like systems

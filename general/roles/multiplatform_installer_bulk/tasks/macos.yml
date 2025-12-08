@@ -1,0 +1,7 @@
+---
+- name: Installing Packages via Brew
+  community.general.homebrew:
+    name: "{{ multiplatform_installer_bulk_packages_mac }}"
+- name: Installing Packages via Brew Cask
+  community.general.homebrew_cask:
+    name: "{{ multiplatform_installer_bulk_packages_mac_casks }}"
