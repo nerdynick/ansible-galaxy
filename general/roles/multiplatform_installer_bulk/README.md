@@ -6,15 +6,18 @@ Allows for a multi-platform installation of collections. To ensure different pla
 
 ## Role Variables
 
+```yaml
 multiplatform_installer_bulk_packages_mac: []
 multiplatform_installer_bulk_packages_mac_casks: []
 multiplatform_installer_bulk_packages_linux: []
 multiplatform_installer_bulk_packages_linux_apt: []
 multiplatform_installer_bulk_packages_linux_yum: []
+```
 
 ## Example Playbook
+
 ```yml
-- name: Installing Sublime Text
+- name: Installing Packages
   ansible.builtin.include_role:
     name: nerdynik.general.multiplatform_installer_bulk
   vars:
