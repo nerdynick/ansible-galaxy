@@ -3,6 +3,9 @@
 A role to help install Authorized SSH Keys for a single user on a host.
 It can load public keys from a local file path, raw strings, and 1Password.
 
+> [!NOTE]
+> Verified Working 2025-12-11
+
 ## Role Variables
 
 ```yaml
