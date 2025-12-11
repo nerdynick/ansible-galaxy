@@ -9,12 +9,12 @@
       Check Repo: {{ multiplatform_installer_yum_repo is undefined or multiplatform_installer_yum_repo | length == 0 }}
 - name: Installing Package from Yum
   when: >
-    (multiplatform_installer_apt_repo is undefined or multiplatform_installer_apt_repo | length == 0) and
-    multiplatform_installer_apt_package is defined and multiplatform_installer_apt_package | length > 0
+    (multiplatform_installer_yum_repo is undefined or multiplatform_installer_yum_repo | length == 0) and
+    multiplatform_installer_yum_package is defined and multiplatform_installer_yum_package | length > 0
   block:
     - name: Installing Package from Yum
       ansible.builtin.yum:
-        name: "{{ multiplatform_installer_apt_package }}"
+        name: "{{ multiplatform_installer_yum_package }}"
         state: present
         update_cache: true
       become: true
@@ -31,7 +31,7 @@
       become: true
     - name: Installing Package from Yum
       ansible.builtin.yum:
-        name: "{{ multiplatform_installer_apt_package }}"
+        name: "{{ multiplatform_installer_yum_package }}"
         state: present
         update_cache: true
       become: true
