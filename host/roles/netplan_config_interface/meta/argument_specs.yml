@@ -48,3 +48,7 @@ argument_specs:
             type: str
           via:
             type: str
+      netplan_config_interface_mtu:
+        type: str
+        description: MTU value for interface
+        default: 1500

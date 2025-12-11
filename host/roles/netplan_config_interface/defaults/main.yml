@@ -1,6 +1,7 @@
 ---
 netplan_config_interface_interface: ""
 netplan_config_interface_netplanfile: "/etc/netplan/50-cloud-init.yaml"
+netplan_config_interface_mtu: 1500
 
 netplan_config_interface_dns4_addresses:
   - 1.1.1.1
