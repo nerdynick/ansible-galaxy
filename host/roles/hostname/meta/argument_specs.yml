@@ -1,0 +1,22 @@
+---
+# argument spec file for nerdynik.host.hostname
+
+argument_specs:
+  main:
+    short_description: A role to set the hostname for the machine, including via temp means as to not require reboot.
+    options:
+      hostname_ip:
+        type: str
+        description: >
+          The lookup interface to set the Hostname against.
+          This is added as modern Debian like OS use 127.0.1.1 rather then 127.0.0.1 to separate localhost from hostname based loopback addressing.
+          See this for more details: https://askubuntu.com/questions/754213/what-is-difference-between-localhost-address-127-0-0-1-and-127-0-1-1
+        default: 127.0.1.1
+      hostname_fqdn:
+        type: str
+        description: The FQDN of the machine to use as it's Hostname
+        required: true
+      hostname_pretty:
+        type: str
+        required: false
+        description: Optionally set a pretty hostname

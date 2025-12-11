@@ -1,0 +1,29 @@
+---
+- name: "Change hostname without reboot to {{ hostname_fqdn }}"
+  ansible.builtin.hostname:
+    name: "{{ hostname_fqdn }}"
+- name: Updating /etc/hosts
+  when: not hostname_ip == '127.0.0.1'
+  ansible.builtin.lineinfile:
+    path: /etc/hosts
+    search_string: "{{ hostname_ip }}"
+    line: "{{ hostname_ip }} {{ hostname_fqdn }}"
+- name: Updating /etc/hosts
+  when: hostname_ip == '127.0.0.1'
+  ansible.builtin.lineinfile:
+    path: /etc/hosts
+    search_string: "{{ hostname_ip }}"
+    line: "{{ hostname_ip }} localhost {{ hostname_fqdn }}"
+- name: Updating /etc/hostname
+  ansible.builtin.copy:
+    dest: /etc/hostname
+    content: "{{ hostname_fqdn }}"
+    owner: root
+    group: root
+    mode: "0644"
+- name: Setting Pretty Hostname
+  when: not hostname_pretty|default("") == ""
+  ansible.builtin.lineinfile:
+    path: /etc/machine-info
+    search_string: "PRETTY_HOSTNAME"
+    line: 'PRETTY_HOSTNAME="{{ hostname_pretty }}"'

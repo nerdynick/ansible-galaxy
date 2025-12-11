@@ -1,0 +1,4 @@
+---
+hostname_ip: 127.0.1.1 # Debian default address. See https://askubuntu.com/questions/754213/what-is-difference-between-localhost-address-127-0-0-1-and-127-0-1-1
+hostname_fqdn: ""
+hostname_pretty: ""
