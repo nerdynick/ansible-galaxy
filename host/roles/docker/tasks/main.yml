@@ -1,0 +1,20 @@
+---
+# - name: Print all available facts
+#   ansible.builtin.debug:
+#     var: ansible_facts
+- name: Installing Packages
+  ansible.builtin.include_role:
+    name: nerdynik.general.multiplatform_installer
+  vars:
+    multiplatform_installer_apt_repo:
+      key_url: https://download.docker.com/linux/ubuntu/gpg
+      key_name: docker
+      url: https://download.docker.com/linux/ubuntu
+      name: docker
+      dist: "{{ ansible_distribution_release }} stable"
+    multiplatform_installer_apt_package:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+      - docker-buildx-plugin
+      - docker-compose-plugin
