@@ -6,7 +6,8 @@ A role to set the hostname for the machine, including via temp means as to not r
 
 ```yaml
 hostname_ip: 127.0.1.1 # Debian default address. See https://askubuntu.com/questions/754213/what-is-difference-between-localhost-address-127-0-0-1-and-127-0-1-1
-hostname_fqdn: ""
+hostname_fqdn: "" # The Fully Qualified Domain to set as the Hostname
+hostname_pretty: "" # An optional shorter/prettier name to use within the host
 ```
 
 ## Example Playbook
