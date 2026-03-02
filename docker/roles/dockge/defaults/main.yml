@@ -1,0 +1,8 @@
+---
+dockge_release_tag: latest
+dockge_image: louislam/dockge
+dockge_port: 5001
+dockge_private_registry_support: false
+dockge_dir_data: /opt/dockge/data
+dockge_dir_stacks: /opt/dockge/stacks
+dockge_dir_compose_project: /opt/dockge

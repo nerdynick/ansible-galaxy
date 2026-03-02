@@ -1,0 +1,17 @@
+---
+- name: Creating Directories
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    mode: "0744"
+  loop:
+    - "{{ dockge_dir_compose_project }}"
+    - "{{ dockge_dir_stacks }}"
+    - "{{ dockge_dir_data }}"
+- name: Generating Docker Compose File for {{ ansible_role_name }}
+  ansible.builtin.template:
+    src: compose.yml.j2
+    dest: "{{ dockge_dir_compose_project }}/docker-compose.yml"
+    mode: "0644"
+  notify:
+    - Restart Compose

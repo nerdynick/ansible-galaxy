@@ -1,0 +1,23 @@
+services:
+  dockge:
+    image: {{ dockge_image }}:{{ dockge_release_tag }}
+    restart: unless-stopped
+    ports:
+      # Host Port : Container Port
+      - {{ dockge_port }}:5001
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - {{ dockge_dir_data }}:/app/data    
+    # If you want to use private registries, you need to share the auth file with Dockge:
+    {% if dockge_private_registry_support %}
+      - /root/.docker/:/root/.docker
+    {% endif %}
+    
+      # Stacks Directory
+      # ⚠️ READ IT CAREFULLY. If you did it wrong, your data could end up writing into a WRONG PATH.
+      # ⚠️ 1. FULL path only. No relative path (MUST)
+      # ⚠️ 2. Left Stacks Path === Right Stacks Path (MUST)
+      - {{ dockge_dir_stacks }}:{{ dockge_dir_stacks }}
+    environment:
+      # Tell Dockge where is your stacks directory
+      - DOCKGE_STACKS_DIR={{ dockge_dir_stacks }}

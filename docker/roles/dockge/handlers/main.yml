@@ -1,0 +1,9 @@
+---
+- name: Restart Compose
+  community.docker.docker_compose:
+    project_src: "{{ dockge_dir_compose_project }}"
+    state: present
+    remove_orphans: true
+    build: true
+    restarted: true
+    pull: true

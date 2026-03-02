@@ -1,0 +1,39 @@
+---
+argument_specs:
+  main:
+    short_description: A role to setup Dockge via Docker Compose
+    options:
+      dockge_image:
+        type: str
+        description: The docker image to use, defaults to the official one
+        default: louislam/dockge
+      dockge_release_tag:
+        type: str
+        description: The docker image release tag to use
+        default: latest
+      dockge_port:
+        type: int
+        description: Port to expose Dockge one. Defaults to the standard dockge port.
+        default: 5001
+      dockge_private_registry_support:
+        type: bool
+        description: >
+          Allow the use of Private registries. 
+          This enables an additional mount for the dockge container that allows it to access the local dockers damons registry configs. 
+        default: false
+      dockge_dir_data:
+        type: str
+        description: Directory location where dockge can store required data. Such as credentials.
+        default: /opt/dockge/data
+      dockge_dir_stacks:
+        type: str
+        description: >
+          Directory location where dockge should look for docker compose files containing compose stacks. 
+          Each stack should be in its own folder within this directory containing a single `docker-compose.yml` file.
+        default: /opt/dockge/stacks
+      dockge_dir_compose_project:
+        type: str
+        description: >
+          Directory where the `docker-compose.yml` for dockge itself should be. 
+          Any changes that results in ansible making changes to this file will also trigger a restart of dockge. 
+        default: /opt/dockge
