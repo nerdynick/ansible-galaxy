@@ -1,0 +1,18 @@
+namespace: nerdynik
+name: docker
+version: 0.0.1
+readme: README.md
+authors:
+  - NerdyNik
+description: >
+  A collection of roles to install docker containers.
+  Almost all containers rely on `docker-compose` and in turn I favor using `dockge` as the UI fronting these compose scripts.
+  However they all simply drop the docker compose script(s) and any other resources in a designated folder. 
+  So countless other systems or simply manual should be able to work fine with it.
+license:
+  - BSD-3-Clause
+tags:
+  - homelab
+repository: https://github.com/nerdynick/ansible-galaxy.git
+homepage: https://github.com/nerdynick/ansible-galaxy
+issues: https://github.com/nerdynick/ansible-galaxy/issues
